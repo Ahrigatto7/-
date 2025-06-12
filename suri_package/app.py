@@ -6,9 +6,9 @@ import io
 import fitz  # PyMuPDF
 import docx
 
-st.set_page_config(page_title="Documents Analyze", layout="wide")
+st.set_page_config(page_title="documents analyze", layout="wide")
 
-st.title("📥 Documents Analyze")
+st.title("📥 documents analyze")
 st.markdown(":green[지식 기반 자동 해석 도구]입니다. 규칙과 개념 데이터를 업로드하고 조건을 입력하거나 문서를 분석합니다.")
 
 # Upload document files (PDF, TXT, DOCX)
@@ -134,26 +134,47 @@ if rule_file:
     st.dataframe(result_log)
 
 # -------------------------------
-# 📌 개념 / 규칙 추출 함수 예시 (간단한 키워드 기반 추출)
+# 📌 개념 / 규칙 정규식 기반 추출 함수
 # -------------------------------
 
 st.markdown("---")
-st.subheader("🧠 문서에서 개념 및 규칙 자동 추출 (실험적 기능)")
+st.subheader("🧠 문서에서 개념 및 규칙 자동 추출 (정규식 기반)")
 
-def extract_concepts_rules(text):
+def extract_structured_data(text):
+    concept_pattern = r"개념[:：]?\s*(.+)"
+    rule_pattern = r"규칙[:：]?\s*(.+)"
+    condition_pattern = r"조건[:：]?\s*(.+)"
+    outcome_pattern = r"결과[:：]?\s*(.+)"
+    exception_pattern = r"예외[:：]?\s*(.+)"
+
     lines = text.split("\n")
-    concepts, rules = [], []
-    for line in lines:
-        if "개념:" in line:
-            parts = line.split("개념:")
-            if len(parts) > 1:
-                concepts.append(parts[1].strip())
-        elif "규칙:" in line or "rule" in line.lower():
-            parts = line.split("규칙:")
-            if len(parts) > 1:
-                rules.append(parts[1].strip())
-    return concepts, rules
+    extracted_data = []
 
+    current_rule = {}
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        if match := re.match(rule_pattern, line):
+            if current_rule:
+                extracted_data.append(current_rule)
+                current_rule = {}
+            current_rule["rule"] = match.group(1)
+        elif match := re.match(condition_pattern, line):
+            current_rule["condition"] = match.group(1)
+        elif match := re.match(outcome_pattern, line):
+            current_rule["outcome"] = match.group(1)
+        elif match := re.match(exception_pattern, line):
+            current_rule["exception"] = match.group(1)
+        elif match := re.match(concept_pattern, line):
+            extracted_data.append({"concept": match.group(1)})
+
+    if current_rule:
+        extracted_data.append(current_rule)
+
+    return pd.DataFrame(extracted_data)
+
+# 실제 파일에서 추출 실행
 for uploaded_file in uploaded_files:
     file_ext = uploaded_file.name.split('.')[-1].lower()
     text = ""
@@ -166,14 +187,13 @@ for uploaded_file in uploaded_files:
             text = extract_text_from_docx(uploaded_file)
 
         if text:
-            concepts, rules = extract_concepts_rules(text)
-            if concepts:
-                st.success(f"🔍 추출된 개념 {len(concepts)}개")
-                st.write(concepts)
-            if rules:
-                st.info(f"📋 추출된 규칙 {len(rules)}개")
-                st.write(rules)
-            if not concepts and not rules:
-                st.warning("⚠️ 규칙 또는 개념으로 추정되는 항목을 찾을 수 없습니다.")
+            st.markdown(f"### 🔍 `{uploaded_file.name}`에서 추출된 데이터")
+            extracted_df = extract_structured_data(text)
+            if not extracted_df.empty:
+                st.dataframe(extracted_df)
+                csv = extracted_df.to_csv(index=False).encode('utf-8')
+                st.download_button("⬇️ 추출 결과 CSV 다운로드", data=csv, file_name="extracted_rules_concepts.csv", mime="text/csv")
+            else:
+                st.warning("📭 패턴에 맞는 규칙 또는 개념을 찾을 수 없습니다.")
     except Exception as e:
         st.error(f"❌ 추출 중 오류 발생: {e}")
