@@ -1,0 +1,5 @@
+streamlit
+spacy==3.7.2
+thinc
+konlpy
+pandas

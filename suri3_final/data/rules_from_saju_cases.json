@@ -1,0 +1,57 @@
+[
+  {
+    "type": "special",
+    "condition": "生(생), 合(합), 伏吟(복음), 入墓(",
+    "result": "성별 전환 또는 자식 없음"
+  },
+  {
+    "type": "special",
+    "condition": "",
+    "result": "성별 전환 또는 자식 없음"
+  },
+  {
+    "type": "special",
+    "condition": "천간에",
+    "result": "성별 전환 또는 자식 없음"
+  },
+  {
+    "type": "special",
+    "condition": "자식궁에 못가고",
+    "result": "성별 전환 또는 자식 없음"
+  },
+  {
+    "type": "special",
+    "condition": "자식宮과 “",
+    "result": "성별 전환 또는 자식 없음"
+  },
+  {
+    "type": "zsg",
+    "condition": "",
+    "result": "아들"
+  },
+  {
+    "type": "zss",
+    "condition": "자식성이 자식宮과 관계가 발생하니 자식이다",
+    "result": "자식 있음"
+  },
+  {
+    "type": "special",
+    "condition": "妻星인 巳火와 직접적인 관계는 없으나 申子辰합, 巳申합으로 관계가 있어 자식이 있다",
+    "result": "자식 있음"
+  },
+  {
+    "type": "special",
+    "condition": "妻星이고 자식성과 합하니 자식이 있다",
+    "result": "자식 있음"
+  },
+  {
+    "type": "special",
+    "condition": "妻星이고 자식星과 합을 하면 자식이 있다",
+    "result": "자식 있음"
+  },
+  {
+    "type": "special",
+    "condition": "妻星인 亥와 합이 없어 자식이 없다",
+    "result": "자식 없음"
+  }
+]
