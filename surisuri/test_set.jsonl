@@ -1,0 +1,5 @@
+{"text": "자식성이 절지에 있으면 기운이 묻힌다.", "entities": [[0, 4, "TERM"], [5, 12, "CONDITION"], [13, 21, "OUTCOME"]]}
+{"text": "정인이 약하면 입양을 고려한다.", "entities": [[0, 2, "TERM"], [3, 6, "CONDITION"], [7, 13, "OUTCOME"]]}
+{"text": "자식성이 허투하면 성별이 바뀐다.", "entities": [[0, 4, "TERM"], [5, 8, "CONDITION"], [9, 16, "OUTCOME"]]}
+{"text": "편관이 자식궁에 있으나 형충을 받으면 아들 보기 어렵다.", "entities": [[0, 3, "TERM"], [4, 9, "CONDITION"], [26, 34, "OUTCOME"]]}
+{"text": "자식궁에 인성이 강하면 무자하다.", "entities": [[0, 4, "TERM"], [5, 10, "CONDITION"], [11, 15, "OUTCOME"]]}
