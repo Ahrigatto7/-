@@ -5,8 +5,8 @@ import os
 
 st.set_page_config(page_title="시스템", layout="wide")
 
-st.title("📥 수암명리 자동 해석 시스템")
-st.markdown(":green[명리 지식 기반 자동 해석 도구]입니다. 규칙과 개념 데이터를 업로드하고 조건을 입력하면 자동으로 해석합니다.")
+st.title("📥 시스템")
+st.markdown(":green[해석 도구]입니다. 규칙과 개념 데이터를 업로드하고 조건을 입력하면 자동으로 해석합니다.")
 
 # Load or initialize log
 log_file = "results.csv"
