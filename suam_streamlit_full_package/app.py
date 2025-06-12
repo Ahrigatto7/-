@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="수암명리 자동 해석", layout="wide")
+st.set_page_config(page_title="자동 해석", layout="wide")
 
 st.title("📥 수암명리 자동 해석 시스템 (Python Streamlit 버전)")
 
